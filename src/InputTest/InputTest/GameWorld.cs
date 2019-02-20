@@ -18,7 +18,7 @@ namespace InputTest
     {
         GraphicsDeviceManager graphics;
         public List<GameEntity> GameEntities { get; set; }
-        public List<GameEntity> Players { get; set; }
+        public List<Player> Players { get; set; }
         public Stopwatch GameTimer { get; set; }
 
         private TimeSpan previousGameTick;
@@ -58,7 +58,7 @@ namespace InputTest
         public GameWorld()
         {
             this.GameEntities = new List<GameEntity>();
-            this.Players = new List<GameEntity>();
+            this.Players = new List<Player>();
 
             this.GameTimer = new Stopwatch();
             this.GameTimer.Start();
@@ -68,22 +68,22 @@ namespace InputTest
 
             var player1 = new Player(this, 1, Color.Black, 16, 64, 50, 2);
             var player2 = new Player(this, 2, Color.Red, 496, 128, 50, 2);
-            var ball = new Ball(Color.Black, 256, 256, 0);
+            var ball    = new Ball  (this,    Color.Black, 256, 256, 4);
 
-            this.AddEntity(player1);
-            this.AddEntity(player2);
-            this.AddEntity(ball);
+            this.Players.Add(player1);
+            this.Players.Add(player2);
+            this.GameEntities.Add(ball);
         }
 
-        public void AddEntity(GameEntity entity)
-        {
-            if(entity.GetType() == typeof(Player)) {
-                this.Players.Add(entity);
-            }
-            else {
-                this.GameEntities.Add(entity);
-            }
-        }
+        //public void AddEntity(GameEntity entity)
+        //{
+        //    if(entity.GetType() == typeof(Player)) {
+        //        this.Players.Add(entity);
+        //    }
+        //    else {
+        //        this.GameEntities.Add(entity);
+        //    }
+        //}
 
         public void GameTick(GameTime gameTime, GraphicsDevice graphicsDevice)
         {

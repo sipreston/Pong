@@ -17,36 +17,68 @@ namespace InputTest.Entities
 
         int velocity;
 
-        string moveDirection;
-
         Color color;
+
+        Rectangle body;
+
+        GameWorld gameWorld;
+
+        string moveDirection;
 
         public float time { get; set; }
 
         public int speed { get; set; } 
-        public Ball(Color color, int startx, int starty, int velocity)
+        public Ball(GameWorld gameWorld, Color color, int startx, int starty, int velocity)
         {
+            this.moveDirection = "LEFT"; // To begin with all games will start with it going left. But we'll want to randomise this later.
+
+            this.gameWorld = gameWorld;
             this.color = color;
             this.x = startx;
             this.y = starty;
             this.velocity = velocity;
+
+            this.body = new Rectangle(
+                this.x,
+                this.y,
+                this.width,
+                this.height
+            );
+
+            this.speed = 2;
         }
 
         public override void GameTick(float millisecondsElapsed)
         {
             this.time = this.time + millisecondsElapsed;
+
             if (this.time > this.speed)
             {
-                switch (this.moveDirection)
+                foreach(var player in this.gameWorld.Players)
                 {
-                    case "UP":
-                        break;
-                    case "DOWN":
-                        break;
+                    if (this.body.Intersects(player.Body))
+                    {
+                        this.SwitchDirection();
+                    }
+
+                    if(this.moveDirection == "LEFT")
+                    {
+                        this.x--;
+                    }
+                    else
+                    {
+                        this.x++;
+                    }
                 }
-                
-                this.time = 0;
             }
+            
+           
+           
+
+            body.X = this.x;
+            body.Y = this.y;
+            body.Width = this.width;
+            body.Height = this.height;
         }
         public override void Draw(GraphicsDevice graphicsDevice)
         {
@@ -60,15 +92,12 @@ namespace InputTest.Entities
             var effects = new SpriteEffects();
             float z = 0;
 
+            
+
             spriteBatch.Begin();
             spriteBatch.Draw(
                 pixel, 
-                new Rectangle(
-                    this.x, 
-                    this.y, 
-                    this.width, 
-                    this.height
-                ), 
+                body,
                 null, 
                 GetColor(), 
                 rotation, 
@@ -99,6 +128,18 @@ namespace InputTest.Entities
                 this.y = this.height * ranVal;
             }
 
+        }
+
+        public void SwitchDirection()
+        {
+            if(this.moveDirection == "LEFT")
+            {
+                this.moveDirection = "RIGHT";
+            }
+            else
+            {
+                this.moveDirection = "LEFT";
+            }
         }
     }
 }

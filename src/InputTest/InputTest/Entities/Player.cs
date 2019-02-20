@@ -18,7 +18,8 @@ namespace InputTest.Entities
 
         Color color;
 
-        Rectangle body;
+        private Rectangle body;
+        public Rectangle Body { get { return this.body; } }
         // this seems like a bad idea but we'll do this for now.
         GameWorld gameWorld;
 
