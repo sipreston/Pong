@@ -19,6 +19,8 @@ namespace InputTest.Entities
         Color color;
 
         Rectangle body;
+        // this seems like a bad idea but we'll do this for now.
+        GameWorld gameWorld;
 
         public int x { get; set; }
 
@@ -34,8 +36,9 @@ namespace InputTest.Entities
 
         public int speed { get; set; } 
 
-        public Player(int playerNumber, Color color, int? startx, int? starty, int? velocity, int? movement)
+        public Player(GameWorld gameWorld, int playerNumber, Color color, int? startx, int? starty, int? velocity, int? movement)
         {
+            this.gameWorld = gameWorld;
             this.Number = playerNumber;
             this.color = color;
             this.body = new Rectangle(
@@ -99,10 +102,12 @@ namespace InputTest.Entities
                 switch (moveDirection)
                 {
                     case "UP":
-                        this.y = y - speed;
+                        if(this.body.Top > 0)
+                            this.y = y - speed;
                         break;
                     case "DOWN":
-                        this.y = y + speed;
+                        if(this.body.Bottom < this.gameWorld.Height)
+                            this.y = y + speed;
                         break;
                     default:
                         // do nothing?

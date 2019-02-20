@@ -25,6 +25,21 @@ namespace InputTest
 
         int tileSize = 32;
         int gridSize = 16;
+
+        private int height;
+        private int width;
+
+        //public int Height { get; set; }
+
+        public int Height
+        {
+            get { return this.height; }            
+        }
+        public int Width
+        {
+            get { return this.width; }
+        }
+
         float z = 1;
 
         Color lastColor;
@@ -48,8 +63,11 @@ namespace InputTest
             this.GameTimer = new Stopwatch();
             this.GameTimer.Start();
 
-            var player1 = new Player(1, Color.Black, 16, 64, 50, 2);
-            var player2 = new Player(2, Color.Red, 496, 128, 50, 2);
+            this.height = this.tileSize * this.gridSize;
+            this.width = this.tileSize * this.gridSize;
+
+            var player1 = new Player(this, 1, Color.Black, 16, 64, 50, 2);
+            var player2 = new Player(this, 2, Color.Red, 496, 128, 50, 2);
             var ball = new Ball(Color.Black, 256, 256, 0);
 
             this.AddEntity(player1);
