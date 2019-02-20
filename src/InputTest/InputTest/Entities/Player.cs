@@ -38,6 +38,12 @@ namespace InputTest.Entities
         {
             this.Number = playerNumber;
             this.color = color;
+            this.body = new Rectangle(
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
             // horizontal start position
             if(startx is int) {
                 this.x = (int)startx;
@@ -152,15 +158,15 @@ namespace InputTest.Entities
             var effects = new SpriteEffects();
             float z = 0;
 
+            body.X = this.x;
+            body.Y = this.y;
+            body.Width = this.width;
+            body.Height = this.height;
+
             spriteBatch.Begin();
             spriteBatch.Draw(
                 pixel, 
-                new Rectangle(
-                    this.x, 
-                    this.y, 
-                    this.width, 
-                    this.height
-                ), 
+                body,
                 null, 
                 GetColor(), 
                 rotation, 
