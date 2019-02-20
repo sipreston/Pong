@@ -113,40 +113,7 @@ namespace InputTest.Entities
                         // do nothing?
                         break;
                 }
-                /*
-                if (this.moveDirection == "ACROSS")
-                {
-                    if (this.x > 512 - moveSpeed)
-                    {
-                        this.x = 0;
-                        this.y = y + 32;
-                    }
-                    else
-                    {
-                        this.x = x + moveSpeed;
-                    }
-                    if (this.y > 512 - 32)
-                    {
-                        this.y = 0;
-                    }
-                }
-                else
-                {
-                    if (this.y > 512 - moveSpeed)
-                    {
-                        this.y = 0;
-                        this.x = x + 32;
-                    }
-                    else
-                    {
-                        this.y = y + moveSpeed;
-                    }
-                    if (this.x > 512 - 32)
-                    {
-                        this.x = 0;
-                    }
-                }
-                */
+                
                 this.time = 0;
             }
         }
